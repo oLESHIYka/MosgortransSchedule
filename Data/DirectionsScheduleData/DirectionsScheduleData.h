@@ -3,6 +3,7 @@
 #include <unordered_map>
 // ========================================= SYNOPSIS
 #include "MosgortransSchedule\Data\BaseScheduleData\BaseScheduleData.h"
+#include "MosgortransSchedule\Data\DaysScheduleData\DaysScheduleData.h"
 // ==================================================
 
 // ==================================================
@@ -19,6 +20,7 @@ public:
 private:
    QString m_fromStation;
    QString m_toStation;
+   DaysScheduleData m_daysSchedule;
 };
 
 

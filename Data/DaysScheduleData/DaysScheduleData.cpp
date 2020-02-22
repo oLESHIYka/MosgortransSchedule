@@ -1,18 +1,18 @@
 // ========================================= INCLUDES
 #include <QJsonDocument>
 // ========================================= SYNOPSIS
-#include "MosgortransSchedule\Data\DirectionsScheduleData\DirectionsScheduleData.h"
+#include "MosgortransSchedule\Data\DaysScheduleData\DaysScheduleData.h"
 // ==================================================
 
 // ==================================================
-void DirectionsScheduleData::updateFromJSON( const QJsonDocument& data )
+void DaysScheduleData::updateFromJSON( const QJsonDocument& data )
 // ==================================================
 {
    
 }
 
 // ==================================================
-void DirectionScheduleData::updateFromJSON( const QJsonDocument& data )
+void DayScheduleData::updateFromJSON( const QJsonDocument& data )
 // ==================================================
 {
    
