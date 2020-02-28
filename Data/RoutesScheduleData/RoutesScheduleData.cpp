@@ -1,10 +1,21 @@
 // ========================================= INCLUDES
 #include <QJsonDocument>
 #include <QJsonArray>
-#include <QJsonDocument>
+#include <QJsonObject>
 // ========================================= SYNOPSIS
 #include "MosgortransSchedule\Data\RoutesScheduleData\RoutesScheduleData.h"
 // ==================================================
+
+//// ==================================================
+//RouteScheduleData::RouteScheduleData( const RouteScheduleData& data )
+//   : BaseScheduleData( data )
+//   , m_type( data.getType() )
+//   , m_number( data.getNumber() )
+//   , m_directionsSchedule( data.getDirectionsSchedule() )
+//// ==================================================
+//{
+//
+//}
 
 // ==================================================
 void RoutesScheduleData::updateFromJSON( const QJsonDocument& data )
@@ -18,7 +29,11 @@ void RoutesScheduleData::updateFromJSON( const QJsonDocument& data )
       {
          if ( value.isObject() )
          {
+            auto routeDataPtr = std::make_shared< RouteScheduleData >( this );
 
+            routeDataPtr->updateFromJSON( QJsonDocument( value.toObject() ) );
+
+            m_data.push_back( routeDataPtr );
          }
       }
    }
@@ -28,5 +43,11 @@ void RoutesScheduleData::updateFromJSON( const QJsonDocument& data )
 void RouteScheduleData::updateFromJSON( const QJsonDocument& data )
 // ==================================================
 {
-   
+   if ( data.isObject() )
+   {
+      static std::map<QString, ROUTE_TYPE> routeTypeMap
+      {
+         { "avto", ROUTE_TYPE::BUS }
+      };
+   }
 }
