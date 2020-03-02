@@ -88,9 +88,9 @@ void APIHandler::replyHandler( QNetworkReply* reply )
          {
             case LastRequestInfo::REQUEST_TYPE::ALL_ROUTES:
             {
-               if ( json["data"].isObject() )
+               if ( jsonObj["data"].isObject() )
                {
-                  const auto data = QJsonDocument( json["data"].toObject() );
+                  const auto data = QJsonDocument( jsonObj["data"].toObject() );
 
                   emit allRoutesReceived( data );
                }
@@ -104,9 +104,9 @@ void APIHandler::replyHandler( QNetworkReply* reply )
             }
             case LastRequestInfo::REQUEST_TYPE::ROUTE_SCHEDULE:
             {
-               if ( json["data"].isArray() )
+               if ( jsonObj["data"].isArray() )
                {
-                  const auto data = QJsonDocument( json["data"].toArray() );
+                  const auto data = QJsonDocument( jsonObj["data"].toArray() );
 
                   emit routeScheduleReceived( data );
                }

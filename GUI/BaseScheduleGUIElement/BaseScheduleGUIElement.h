@@ -2,6 +2,7 @@
 // ========================================= INCLUDES
 #include <QWidget>
 #include <QThread>
+#include <memory>
 // ========================================= SYNOPSIS
 #include "MosgortransSchedule\Data\BaseScheduleData\BaseScheduleData.h"
 // ==================================================
