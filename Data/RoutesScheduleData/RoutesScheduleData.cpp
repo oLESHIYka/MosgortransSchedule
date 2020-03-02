@@ -45,9 +45,32 @@ void RouteScheduleData::updateFromJSON( const QJsonDocument& data )
 {
    if ( data.isObject() )
    {
-      static std::map<QString, ROUTE_TYPE> routeTypeMap
+      static std::map< QString, ROUTE_TYPE > s_routeTypeMap
       {
-         { "avto", ROUTE_TYPE::BUS }
+         { "avto", ROUTE_TYPE::BUS },
+         { "trol", ROUTE_TYPE::TROL },
+         { "tram", ROUTE_TYPE::TRAM }
       };
+
+      if ( data["type"].isString() )
+      {
+         auto routeTypeIt = s_routeTypeMap.find( data["type"].toString() );
+         if ( routeTypeIt != s_routeTypeMap.cend())
+         {
+            m_type = routeTypeIt->second;
+         }
+      }
+
+      if ( data["number"].isString() )
+      {
+         m_number = data["number"].toString();
+      }
+
+      if ( data["directionsSchedule"].isArray() )
+      {
+         auto directionsSchedule = data["directionsSchedule"].toArray();
+
+         m_directionsSchedule.updateFromJSON( QJsonDocument( data["directionsSchedule"].toArray() ) );
+      }
    }
 }

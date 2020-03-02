@@ -1,6 +1,7 @@
 #pragma once
 // ========================================= INCLUDES
 #include <unordered_map>
+#include <memory>
 // ========================================= SYNOPSIS
 #include "MosgortransSchedule\Data\BaseScheduleData\BaseScheduleData.h"
 #include "MosgortransSchedule\Data\DaysScheduleData\DaysScheduleData.h"
@@ -31,16 +32,20 @@ class DirectionsScheduleData : public BaseScheduleData
    Q_OBJECT
 
 public:
-   DirectionsScheduleData( QObject* parent = nullptr ) : BaseScheduleData( parent ) {};
+   DirectionsScheduleData( QObject* parent = nullptr ) : BaseScheduleData( parent ), m_curDirection( DIRECTION_TYPE::UNKNOWN ) {};
 
    virtual void updateFromJSON( const QJsonDocument& data ) override;
 
    enum DIRECTION_TYPE
    {
       AB = 0,
-      BA
+      BA,
+
+      UNKNOWN
    };
 private:
    DIRECTION_TYPE m_curDirection;
-   std::unordered_map< DIRECTION_TYPE, DirectionScheduleData > m_directionScheduleData;
+
+   using DirectionScheduleDataPtr = std::shared_ptr< DirectionScheduleData >;
+   std::unordered_map< DIRECTION_TYPE, DirectionScheduleDataPtr > m_directionScheduleData;
 };
