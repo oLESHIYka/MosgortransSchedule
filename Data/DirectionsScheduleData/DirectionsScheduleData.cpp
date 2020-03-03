@@ -48,6 +48,14 @@ void DirectionsScheduleData::updateFromJSON( const QJsonDocument& data )
    }
 }
 
+
+// ==================================================
+void DirectionScheduleData::parseStations( const QString& combinedStations )
+// ==================================================
+{
+
+}
+
 // ==================================================
 void DirectionScheduleData::updateFromJSON( const QJsonDocument& data )
 // ==================================================

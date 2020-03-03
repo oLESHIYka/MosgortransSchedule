@@ -52,25 +52,27 @@ void RouteScheduleData::updateFromJSON( const QJsonDocument& data )
          { "tram", ROUTE_TYPE::TRAM }
       };
 
-      if ( data["type"].isString() )
+      auto routeScheduleData = data.object();
+
+      if ( routeScheduleData["type"].isString() )
       {
-         auto routeTypeIt = s_routeTypeMap.find( data["type"].toString() );
+         auto routeTypeIt = s_routeTypeMap.find( routeScheduleData["type"].toString() );
          if ( routeTypeIt != s_routeTypeMap.cend())
          {
             m_type = routeTypeIt->second;
          }
       }
 
-      if ( data["number"].isString() )
+      if ( routeScheduleData["number"].isString() )
       {
-         m_number = data["number"].toString();
+         m_number = routeScheduleData["number"].toString();
       }
 
-      if ( data["directionsSchedule"].isArray() )
+      if ( routeScheduleData["directionsSchedule"].isArray() )
       {
-         auto directionsSchedule = data["directionsSchedule"].toArray();
+         auto directionsSchedule = routeScheduleData["directionsSchedule"].toArray();
 
-         m_directionsSchedule.updateFromJSON( QJsonDocument( data["directionsSchedule"].toArray() ) );
+         m_directionsSchedule.updateFromJSON( QJsonDocument( routeScheduleData["directionsSchedule"].toArray() ) );
       }
    }
 }

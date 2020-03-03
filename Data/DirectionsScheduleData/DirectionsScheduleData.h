@@ -18,6 +18,9 @@ public:
 
    virtual void updateFromJSON( const QJsonDocument& data ) override;
 
+protected:
+   void parseStations( const QString& combinedStations );
+
 private:
    QString m_fromStation;
    QString m_toStation;
