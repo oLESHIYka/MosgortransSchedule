@@ -2,6 +2,7 @@
 #include <QJsonDocument>
 #include <QJsonArray>
 #include <QJsonObject>
+#include <QRegularExpression>
 // ========================================= SYNOPSIS
 #include "MosgortransSchedule\Data\DirectionsScheduleData\DirectionsScheduleData.h"
 // ==================================================
@@ -53,7 +54,7 @@ void DirectionsScheduleData::updateFromJSON( const QJsonDocument& data )
 void DirectionScheduleData::parseStations( const QString& combinedStations )
 // ==================================================
 {
-
+   QRegularExpression reg("^(.*) - (.*)$");
 }
 
 // ==================================================
