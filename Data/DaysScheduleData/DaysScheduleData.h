@@ -1,6 +1,7 @@
 #pragma once
 // ========================================= INCLUDES
 #include <QHash>
+#include <memory>
 // ========================================= SYNOPSIS
 #include "MosgortransSchedule\Data\BaseScheduleData\BaseScheduleData.h"
 // ==================================================
@@ -33,6 +34,7 @@ public:
    virtual void updateFromJSON( const QJsonDocument& data ) override;
 
 private:
-   QHash< QString, DayScheduleData > m_daysSchedule;
+   using DayScheduleDataPtr = std::shared_ptr< DayScheduleData >;
+   QHash< QString, DayScheduleDataPtr > m_daysSchedule;
 };
 

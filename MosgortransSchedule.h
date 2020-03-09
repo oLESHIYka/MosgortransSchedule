@@ -1,9 +1,11 @@
 #pragma once
 // ========================================= INCLUDES
 #include <QMainWindow>
+#include <QTHread>
 #include <memory>
 // ========================================= SYNOPSIS
 #include "MosgortransSchedule\GUI\RoutesScheduleWidget\RoutesScheduleWidget.h"
+#include "MosgortransSchedule\\Data\RoutesScheduleData\RoutesScheduleData.h"
 // ==================================================
 
 namespace Ui { class MosgortransSchedule; };
@@ -30,6 +32,11 @@ private:
 
     RoutesScheduleWidget m_routesSchedule;
 
+    using RoutesScheduleDataPtr = std::shared_ptr< RoutesScheduleData >;
+    RoutesScheduleDataPtr m_routesScheduleData;
+
+    QThread m_routesScheduleDataThread;
+
     // $$$ TEMP
-    std::shared_ptr< QTextEdit > m_textEdit;
+    //std::shared_ptr< QTextEdit > m_textEdit;
 };

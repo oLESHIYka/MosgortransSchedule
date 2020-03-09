@@ -40,11 +40,22 @@ class RoutesScheduleData : public BaseScheduleData
    Q_OBJECT
 
 public:
-   RoutesScheduleData( QObject* parent = nullptr ) : BaseScheduleData( parent ) {};
+   RoutesScheduleData( QObject* parent = nullptr );
 
    virtual void updateFromJSON( const QJsonDocument& data ) override;
 
-private:
+   void clearData();
+
+
    using RouteScheduleDataPtr = std::shared_ptr< RouteScheduleData >;
-   std::vector<RouteScheduleDataPtr> m_data;
+   using RoutesSchedule       = std::vector    < RouteScheduleDataPtr >;
+   using RoutesSchedulePtr    = std::shared_ptr< RoutesSchedule >;
+
+   RoutesSchedulePtr getData() const { return m_data; }
+
+signals:
+   void updated( const RoutesSchedulePtr& data );
+
+private:
+   RoutesSchedulePtr m_data;
 };

@@ -6,16 +6,20 @@
 #include "MosgortransSchedule\Data\RoutesScheduleData\RoutesScheduleData.h"
 // ==================================================
 
-//// ==================================================
-//RouteScheduleData::RouteScheduleData( const RouteScheduleData& data )
-//   : BaseScheduleData( data )
-//   , m_type( data.getType() )
-//   , m_number( data.getNumber() )
-//   , m_directionsSchedule( data.getDirectionsSchedule() )
-//// ==================================================
-//{
-//
-//}
+// ==================================================
+RoutesScheduleData::RoutesScheduleData( QObject* parent )
+   : BaseScheduleData( parent )
+// ==================================================
+{
+   m_data = std::make_shared< RoutesSchedule >();
+}
+
+// ==================================================
+void RoutesScheduleData::clearData()
+// ==================================================
+{
+   m_data->clear();
+}
 
 // ==================================================
 void RoutesScheduleData::updateFromJSON( const QJsonDocument& data )
@@ -33,7 +37,7 @@ void RoutesScheduleData::updateFromJSON( const QJsonDocument& data )
 
             routeDataPtr->updateFromJSON( QJsonDocument( value.toObject() ) );
 
-            m_data.push_back( routeDataPtr );
+            m_data->push_back( routeDataPtr );
          }
       }
    }

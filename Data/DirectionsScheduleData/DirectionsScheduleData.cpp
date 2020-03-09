@@ -34,7 +34,7 @@ void DirectionsScheduleData::updateFromJSON( const QJsonDocument& data )
                {
                   DirectionScheduleDataPtr directionDataPtr = std::make_shared< DirectionScheduleData >( this );
 
-                  directionDataPtr->updateFromJSON( QJsonDocument( directionsSchedule ) );
+                  directionDataPtr->updateFromJSON( QJsonDocument( directionSchedule ) );
 
                   m_directionScheduleData[typeIt->second] = directionDataPtr;
 
@@ -55,11 +55,32 @@ void DirectionScheduleData::parseStations( const QString& combinedStations )
 // ==================================================
 {
    QRegularExpression reg("^(.*) - (.*)$");
+
+   auto match = reg.match( combinedStations );
+
+   if ( match.hasMatch() )
+   {
+      m_fromStation = match.captured( 1 );
+      m_toStation   = match.captured( 2 );
+   }
 }
 
 // ==================================================
 void DirectionScheduleData::updateFromJSON( const QJsonDocument& data )
 // ==================================================
 {
-   
+   if ( data.isObject() )
+   {
+      auto dataObj = data.object();
+
+      if ( dataObj["caption"].isString() )
+      {
+         parseStations( dataObj["caption"].toString() );
+      }
+
+      if ( dataObj["daysSchedule"].isArray() )
+      {
+         m_daysSchedule.updateFromJSON( QJsonDocument( dataObj["daysSchedule"].toArray() ) );
+      }
+   }
 }

@@ -11,12 +11,18 @@
 MosgortransSchedule::MosgortransSchedule(QWidget *parent)
    : QMainWindow ( parent )
    , m_routesSchedule ( this )
+   , m_routesScheduleDataThread( this )
 // ==================================================
 {
    m_ui = new Ui::MosgortransSchedule();
    m_ui->setupUi( this );
 
    m_apiHandler = std::make_shared< APIHandler >( this );
+
+   m_routesScheduleData = std::make_shared< RoutesScheduleData >( this );
+   m_routesScheduleDataThread.start();
+   m_routesScheduleData->moveToThread( &m_routesScheduleDataThread );
+   
 
    // $$$ TEMP
    //m_textEdit   = std::make_shared< QTextEdit > ( this );
@@ -29,6 +35,9 @@ MosgortransSchedule::~MosgortransSchedule()
 // ==================================================
 {
    delete m_ui;
+
+   m_routesScheduleData->moveToThread( 0 );
+   m_routesScheduleDataThread.terminate();
 }
 
 // ==================================================
@@ -50,6 +59,8 @@ void MosgortransSchedule::init()
          const QString routeNumber = m_ui->routeNumber->text();
          if ( !routeNumber.isEmpty() )
          {
+            m_routesScheduleData->clearData();
+
             emit m_apiHandler->requestRouteSchedule( routeNumber );
          }
       }
@@ -62,6 +73,12 @@ void MosgortransSchedule::init()
          QString jsonStr = json.toJson();
 
          //m_textEdit->setText( jsonStr );
+         m_routesScheduleData->updateFromJSON( json );
       }
    );
+
+   //QObject::connect(
+   //   m_routesScheduleData.get(), &RoutesScheduleData::updated,
+   //   &m_routesSchedule, &RoutesScheduleWidget::setData
+   //);
 }
