@@ -16,15 +16,17 @@ void DaysScheduleData::updateFromJSON( const QJsonDocument& data )
 
       foreach( const QJsonValue &daySchedule, daysSchedule)
       {
-         if (  daySchedule.isObject()
-            && daySchedule["days"].isString()
-            )
+         if ( daySchedule.isObject() )
          {
-            auto dayScheduleData = std::make_shared< DayScheduleData >(this);
+            auto dayScheduleObj = daySchedule.toObject();
+            if ( dayScheduleObj["days"].isString() )
+            {
+               auto dayScheduleData = std::make_shared< DayScheduleData >(this);
 
-            dayScheduleData->updateFromJSON( QJsonDocument( daySchedule.toObject() ) );
+               dayScheduleData->updateFromJSON( QJsonDocument( daySchedule.toObject() ) );
 
-            m_daysSchedule[daySchedule["days"].toString()] = dayScheduleData;
+               m_daysSchedule[dayScheduleObj["days"].toString()] = dayScheduleData;
+            }
          }
       }
    }

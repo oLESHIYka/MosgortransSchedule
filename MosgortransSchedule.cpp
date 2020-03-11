@@ -77,8 +77,8 @@ void MosgortransSchedule::init()
       }
    );
 
-   //QObject::connect(
-   //   m_routesScheduleData.get(), &RoutesScheduleData::updated,
-   //   &m_routesSchedule, &RoutesScheduleWidget::setData
-   //);
+   QObject::connect(
+      m_routesScheduleData.get(), &RoutesScheduleData::updated,
+      &m_routesSchedule, &RoutesScheduleWidget::updateFromData
+   );
 }

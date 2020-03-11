@@ -51,10 +51,11 @@ public:
    using RoutesSchedule       = std::vector    < RouteScheduleDataPtr >;
    using RoutesSchedulePtr    = std::shared_ptr< RoutesSchedule >;
 
-   RoutesSchedulePtr getData() const { return m_data; }
-
+   const RoutesSchedulePtr getData() const { return m_data; }
+   
+   using BaseScheduleDataPtr = std::shared_ptr< BaseScheduleData >;
 signals:
-   void updated( const RoutesSchedulePtr& data );
+   void updated( const BaseScheduleDataPtr& data );
 
 private:
    RoutesSchedulePtr m_data;
