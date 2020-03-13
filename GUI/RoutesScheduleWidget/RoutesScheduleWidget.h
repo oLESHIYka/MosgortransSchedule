@@ -16,10 +16,10 @@ class RoutesScheduleWidget : public BaseScheduleGUIElement < QToolBar >
 public:
    RoutesScheduleWidget( QWidget *parent = nullptr );
 
-   virtual void setData( DataPointer _data ) override;
+   virtual void setData( const DataPointer _data ) override;
 
    //virtual DataPointer getData() const override;
 
 private:
-   //std::shared_ptr< RoutesScheduleData > m_routesSchedule;
+   std::shared_ptr< RoutesScheduleData > m_routesSchedule;
 };

@@ -18,6 +18,8 @@ public:
    APIHandler( QObject *parent = nullptr );
    ~APIHandler();
 
+   void init();
+
    void requestAllRoutes();
    void requestRouteSchedule( const QString& number );
 

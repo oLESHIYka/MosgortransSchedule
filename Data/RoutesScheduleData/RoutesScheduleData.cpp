@@ -42,7 +42,7 @@ void RoutesScheduleData::updateFromJSON( const QJsonDocument& data )
       }
    }
 
-   emit updated( std::static_pointer_cast<BaseScheduleData>( getData() ) );
+   emit updated( std::make_shared<RoutesScheduleData>( this ) );
 }
 
 // ==================================================

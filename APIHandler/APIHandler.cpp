@@ -8,6 +8,8 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QUrlQuery>
+#include <QNetworkProxy>
+#include <QSettings>
 // ===============================
 
 // =======================CONSTANTS
@@ -40,6 +42,38 @@ APIHandler::~APIHandler()
 {
    moveToThread(0);
    m_apiThread.terminate();
+}
+
+// ===============================
+void APIHandler::init()
+// ===============================
+{
+   QSettings settings( "./configuration.ini", QSettings::IniFormat ); // TO DO: вынести в singleton!!
+
+   if ( settings.status() == QSettings::NoError )
+   {
+      if ( settings.childGroups().contains("HttpProxy") )
+      {
+         settings.beginGroup("HttpProxy");
+            if (  settings.contains("Host")
+               && settings.contains("Port")
+               )
+            {
+               QNetworkProxy proxy;
+
+               proxy.setType( QNetworkProxy::HttpProxy );
+               proxy.setHostName( settings.value( "Host" ).toString() );
+               proxy.setPort    ( settings.value( "Port" ).toInt() );
+
+               m_networkAccessManager->setProxy( proxy );
+            }
+         settings.endGroup();
+      }
+   }
+   else
+   {
+      auto status = settings.status();
+   }
 }
 
 // ===============================

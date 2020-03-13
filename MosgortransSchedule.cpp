@@ -18,6 +18,7 @@ MosgortransSchedule::MosgortransSchedule(QWidget *parent)
    m_ui->setupUi( this );
 
    m_apiHandler = std::make_shared< APIHandler >( this );
+   m_apiHandler->init();
 
    m_routesScheduleData = std::make_shared< RoutesScheduleData >( this );
    m_routesScheduleDataThread.start();

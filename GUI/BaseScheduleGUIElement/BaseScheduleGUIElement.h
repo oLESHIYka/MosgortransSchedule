@@ -17,9 +17,9 @@ public:
    //~BaseScheduleGUIElement();
 
    using DataPointer = std::shared_ptr< BaseScheduleData >;
-   virtual void setData           ( DataPointer _data ) = 0;
+   virtual void setData           ( const DataPointer _data ) {};
 
-           void updateFromData    ( DataPointer _data );
+           void updateFromData    ( const DataPointer _data );
 
    virtual void updateFromDataImpl() {}
 

@@ -12,8 +12,8 @@ RoutesScheduleWidget::RoutesScheduleWidget( QWidget *parent )
 }
 
 // ==================================================
-void RoutesScheduleWidget::setData( DataPointer _data )
+void RoutesScheduleWidget::setData( const DataPointer _data )
 // ==================================================
 {
-   
+   m_routesSchedule = std::static_pointer_cast< RoutesScheduleData >( _data );
 }

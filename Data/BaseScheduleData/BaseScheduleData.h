@@ -11,5 +11,5 @@ class BaseScheduleData : public QObject
 public:
    BaseScheduleData( QObject* parent = nullptr ) : QObject( parent ) {}
 
-   virtual void updateFromJSON( const QJsonDocument& data ) = 0;
+   virtual void updateFromJSON( const QJsonDocument& data ) {};
 };
